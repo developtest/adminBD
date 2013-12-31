@@ -4,13 +4,16 @@
 
 	//Clases
 	include_once "../classes/Usuario.php";
+	include_once "../classes/cPrivilegio.php";
 	
-	$usuario = new Usuario();
-	
+	$usuario 		= new Usuario();
+	$oPrivilegio	= new Privilegio();
+
 	$option  = "";
 	$nombre  = "";
 	$usuarin = "";
 	$passwd  = "";
+	$id_privilegio = "";
 		
 	if (isset($_GET['opt'])) {
 		$option    = $_GET['opt'];
@@ -66,6 +69,9 @@
 
 		if (!form.name.value){
 			msg = 'Please, Type the name of the user.';
+			is_error = true;
+		}else if(!form.apellido.value){
+			msg = 'Por favor, ingrese el apellido del usuario';
 			is_error = true;
 		}else if(!form.user.value){
 			msg = 'Please, Fill the nick name field.';
@@ -124,15 +130,36 @@
 				echo '<input type="hidden" name="opt" value="nUsuario" />';
 			}
 		?>
-		Name:<br>
+		Nombre:<br>
 		<input id="name" type="text" name="name" value="<?=$nombre;?>" /><br>
-		Nick Name:<br>
+		Apellido:<br>
+		<input id="apellido" type="text" name="apellido" value="<?=$nombre;?>" /><br>
+		Usuario:<br>
 		<input id="user" type="text" name="user" value="<?=$usuarin;?>" /><br>
-		Password:<br>
+		Contraseña:<br>
 		<input id="password" type="password" name="password" value="<?=$passwd;?>" /><br>
-		Confirm the Password:<br>
-		<input id="cpassword" type="password" name="cpassword" value="<?=$passwd;?>" />
-		<br>
+		Confirmar contraseña:<br>
+		<input id="cpassword" type="password" name="cpassword" value="<?=$passwd;?>" /><br>
+		Estado:<br>
+			<input type="radio" name="estado" value="1" checked>Activo<br>
+			<input type="radio" name="estado" value="0">Inactivo<br>
+		Privilegio:
+		<select  name="id_privilegio" id="id_privilegio">
+			<option value="">Seleccione</option>
+			<?php
+				$verPrivilegio = $oPrivilegio->privilegios();
+				if($verPrivilegio){
+					foreach ($verPrivilegio as $id1 => $info1) {
+						$selected = "";
+						if ($id1==$id_privilegio) {$selected='selected="selected"';}
+						echo '<option value="'.$id1.'" '.$selected.'>'.$info1['privilegio'].'</option>';
+					}
+				}else{
+					echo '<option value="">no hay paises</option>';
+				}
+			?>	
+		</select><br>
+
 		<?php
 			if ($option == "mUsuario") {
 				echo '<input type="submit" value="UPDATE"/>';
