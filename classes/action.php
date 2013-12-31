@@ -26,12 +26,15 @@ if (isset($_GET['opt'])) {
 //Guarda Nuevo Usuario
 if ( $option == 'nUsuario' ) {
 	//parametros
-	$nombre   = $_POST['name'];
-	$usuarion = $_POST['user'];
-    $password = $_POST['password'];
-	$password  = base64_encode($usuario->encriptar($password));
+	$nombre   		= $_POST['name'];
+	$apellido 		= $_POST['apellido'];
+	$user	 		= $_POST['user'];
+    $password 		= $_POST['password'];
+    $estado   		= $_POST['estado'];
+    $id_privilegio	= $_POST['id_privilegio'];
+	//$password  = base64_encode($usuario->encriptar($password));
 	
-	$params = array($nombre, $usuarion, $password);
+	$params = array($nombre, $apellido, $user, $password, $estado, $id_privilegio);
 	$save   = $usuario->nuevo($params);
 	if ( $save ) {
 		echo "done";

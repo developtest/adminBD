@@ -121,7 +121,8 @@
 <div>
 	<div id="msg" class="message info">Please, Fill all the fields</div>
 	<br>
-	<form id="form" name="form" action="classes/action.php" method="post">
+		<form id="form" name="form" action="classes/action.php" method="post">
+		
 		<?php
 			if ($option == "mUsuario") {
 				echo '<input type="hidden" name="idUsuario" value="'.$idUsuario.' "/>';

@@ -44,17 +44,17 @@ class Usuario {
 
     function usuarios($opt = false, $inicio)
     {
-        $sql = "SELECT idUsuario, nombre, usuario "
-             . "FROM usuario ";
+        $sql = "SELECT id_usuario, nombre, usuario "
+             . "FROM USUARIO";
         if ($opt) {
-            $sql .= " WHERE idUsuario <> 1";
+            $sql .= " WHERE id_usuario <> 1";
         }
 			$sql .= " LIMIT $inicio, 10";
 
         $rs = $this->DATA->Execute($sql);
         if ( $rs->RecordCount()) {
             while(!$rs->EOF){
-                $id                       = $rs->fields['idUsuario'];
+                $id                       = $rs->fields['id_usuario'];
                 $info[$id]['nombre']      = $rs->fields['nombre'];
                 $info[$id]['usuario']     = $rs->fields['usuario'];
                 $rs->MoveNext();
@@ -89,8 +89,8 @@ class Usuario {
     }
 
     function nuevo($params) {
-        $sql = "INSERT INTO usuario (nombre, usuario, contrasenia) "
-             . "VALUES(?, ?, ?)";
+        $sql = "INSERT INTO USUARIO (nombre, apellido, usuario, contrasena, estado, id_privilegio) "
+             . "VALUES(?, ?, ?, ?, ?, ?)";
 
         $save = $this->DATA->Execute($sql, $params);
         if ($save){
