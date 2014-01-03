@@ -21,7 +21,9 @@ if (isset($_GET['opt'])) {
   $option = $_GET['opt'];
 }
 
-/* ---- Usuario ---- */
+/* 
+	 USUARIO 
+*/
 
 //Guarda Nuevo Usuario
 if ( $option == 'nUsuario' ) {
@@ -43,27 +45,34 @@ if ( $option == 'nUsuario' ) {
 	}
 }
 
-if ( $option == 'mUsuario' ) {
+if ( $option == 'mUsuario' ) 
+{
 	//parametros
-	$idUsuario = $_POST['idUsuario'];
-	$nombre    = $_POST['name'];
-	$usuarion  = $_POST['user'];
-    $password  = $_POST['password'];
-	$password  = base64_encode($usuario->encriptar($password));
+	 
+	$nombre   		= $_POST['name'];
+	$apellido 		= $_POST['apellido'];
+	$user	 		= $_POST['user'];
+    $password 		= $_POST['password'];
+    $estado   		= $_POST['estado'];
+    $id_privilegio	= $_POST['id_privilegio'];
+    $id_usuario		= $_POST['id_usuario'];
+	//$password  = base64_encode($usuario->encriptar($password));
 	
-	$params = array($nombre, $usuarion, $password, $idUsuario);
+	$params = array($nombre, $apellido, $user, $password, $estado, $id_privilegio, $id_usuario);
 	$update = $usuario->modificar($params);
 	if ( $update ) {
 		echo "done";
 	} else {
 		echo "error";
 	}
+
+	
 }
 
 //Eliminar Usuario
 if ( $option == 'eUsuario' ) {
     //parametros
-    $idUsuario = $_GET['idUsuario'];
+    $idUsuario = $_GET['id_usuario'];
     $delete    = $usuario->eliminar($idUsuario);
     if ( $delete ) {
         echo "done";

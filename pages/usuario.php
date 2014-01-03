@@ -13,19 +13,23 @@
 	$nombre  = "";
 	$usuarin = "";
 	$passwd  = "";
+	$estado  = "";
 	$id_privilegio = "";
 		
 	if (isset($_GET['opt'])) {
 		$option    = $_GET['opt'];
-		$idUsuario = $_GET['idUsuario'];
+		$id_usuario = $_GET['id_usuario'];
 	}
 	
 	if ($option == "mUsuario") {
-		$vUsuario = $usuario->getUsuario($idUsuario);
+		$vUsuario = $usuario->getUsuario($id_usuario);
 		foreach ($vUsuario AS $id => $info) {
-			$nombre  = $info["nombre"];
-			$usuarin = $info["usuario"];
-			$passwd  = $info["passwd"];
+			$nombre  		= $info["nombre"];	
+			$apellido  		= $info["apellido"]	;
+			$usuarin 		= $info["usuario"];
+			$passwd  		= $info["contrasena"];
+			$estado 		= $info["estado"];
+			$id_privilegio	= $info["id_privilegio"];
 		}
 	}
 ?>
@@ -85,6 +89,9 @@
 		}else if(pwd1 != pwd2){
 			msg = 'The password are diferent.';
 			is_error=true;
+		}else if(!form.id_privilegio.value){
+			msg = 'Por favor, seleccione un privilegio';
+			is_error=true;
 		}
 			
 		if (is_error == true) {
@@ -125,7 +132,7 @@
 		
 		<?php
 			if ($option == "mUsuario") {
-				echo '<input type="hidden" name="idUsuario" value="'.$idUsuario.' "/>';
+				echo '<input type="hidden" name="id_usuario" value="'.$id_usuario.' "/>';
 				echo '<input type="hidden" name="opt" value="mUsuario" />';
 			}else{
 				echo '<input type="hidden" name="opt" value="nUsuario" />';
@@ -150,7 +157,8 @@
 			<?php
 				$verPrivilegio = $oPrivilegio->privilegios();
 				if($verPrivilegio){
-					foreach ($verPrivilegio as $id1 => $info1) {
+					foreach ($verPrivilegio as $id1 => $info1) 
+					{
 						$selected = "";
 						if ($id1==$id_privilegio) {$selected='selected="selected"';}
 						echo '<option value="'.$id1.'" '.$selected.'>'.$info1['privilegio'].'</option>';

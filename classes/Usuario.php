@@ -66,19 +66,22 @@ class Usuario {
         }
     }
 	
-	function getUsuario($idUsuario)
+	function getUsuario($id_usuario)
     {
-        $sql = "SELECT idUsuario, nombre, usuario, "
-             . "contrasenia FROM usuario "
-             . "WHERE idUsuario = ?";
+        $sql = "SELECT id_usuario, nombre, apellido, usuario, contrasena, estado, id_privilegio "
+             . "FROM USUARIO WHERE id_usuario = ?";
 
-        $rs = $this->DATA->Execute($sql, $idUsuario);
+        $rs = $this->DATA->Execute($sql, $id_usuario);
         if ( $rs->RecordCount()) {
             while(!$rs->EOF){
-                $id                       = $rs->fields['idUsuario'];
-                $info[$id]['nombre']      = $rs->fields['nombre'];
-                $info[$id]['usuario']     = $rs->fields['usuario'];
-				$info[$id]['passwd']      = trim($this->desencriptar(base64_decode($rs->fields['contrasenia'])));
+                $id                             = $rs->fields['id_usuario'];
+                $info[$id]['nombre']            = $rs->fields['nombre'];
+                $info[$id]['apellido']          = $rs->fields['apellido'];
+                $info[$id]['usuario']           = $rs->fields['usuario'];
+                $info[$id]['contrasena']        = $rs->fields['contrasena'];
+                $info[$id]['estado']            = $rs->fields['estado'];
+                $info[$id]['id_privilegio']     = $rs->fields['id_privilegio'];
+				//$info[$id]['passwd']      = trim($this->desencriptar(base64_decode($rs->fields['contrasenia'])));
                 $rs->MoveNext();
             }
             $rs->Close();
@@ -101,8 +104,8 @@ class Usuario {
     }
 	
 	function modificar($params) {
-        $sql = "UPDATE usuario SET nombre = ?, usuario = ?, contrasenia = ? "
-             . "WHERE idUsuario = ?";
+        $sql = "UPDATE USUARIO SET nombre = ?, apellido = ?, usuario = ?, contrasena = ?, "
+                    . "estado = ?, id_privilegio = ? WHERE id_usuario = ?;";
 
         $update = $this->DATA->Execute($sql, $params);
         if ($update){
@@ -113,7 +116,7 @@ class Usuario {
     }
 
     function eliminar($idUsuario) {
-        $sql = "DELETE FROM usuario WHERE idUsuario = ?";
+        $sql = "DELETE FROM USUARIO WHERE id_usuario = ?";
         $delete = $this->DATA->Execute($sql, $idUsuario);
         if ($delete) {
             return true;

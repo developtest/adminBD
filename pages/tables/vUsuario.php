@@ -110,9 +110,9 @@
 						echo	"<td>".$info['nombre']."</td>";
 						echo	"<td>".$info['usuario']."</td>";
 						echo	"<td class='options'>
-								<a href='pages/usuario.php?opt=mUsuario&idUsuario=$id' class='link'><img src='images/icons/bedit.png'></a>
+								<a href='pages/usuario.php?opt=mUsuario&id_usuario=$id' class='link'><img src='images/icons/bedit.png'></a>
 								<img src='images/icons/phs.gif'>
-								<a href='classes/action.php?opt=eUsuario&idUsuario=$id' class='ask'><img src='images/icons/bdelete.png'></a></td>";
+								<a href='classes/action.php?opt=eUsuario&id_usuario=$id' class='ask'><img src='images/icons/bdelete.png'></a></td>";
 						echo	"</tr>";
 						$impresos++;
 					}
